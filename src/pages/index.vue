@@ -22,7 +22,7 @@ function generateMines(initial: BlockState) {
         continue
       if (Math.abs(initial.y - block.y) <= 1)
         continue
-      block.mine = Math.random() < 0.5
+      block.mine = Math.random() < 0.2
     }
   }
   updateNumbers()
@@ -71,7 +71,7 @@ function onRightClick(block: BlockState) {
   if (block.revealed)
     return
   block.flagged = !block.flagged
-  // checkGameState()
+  checkGameState()
 }
 function onClick(e: MouseEvent, block: BlockState) {
   if (!mineGenerated) {
@@ -83,7 +83,7 @@ function onClick(e: MouseEvent, block: BlockState) {
   if (block.mine)
     alert('BOOM!!!!!!!!!!!!!!!!!')
   expendZero(block)
-  // checkGameState()
+  checkGameState()
 }
 const numberColors = [
   'text-transparent',
@@ -119,6 +119,8 @@ function getSiblings(block: BlockState) {
     .filter(Boolean) as BlockState[]
 }
 
+// watchEffect(checkGameState)
+
 function checkGameState() {
   if (!mineGenerated)
     return
@@ -131,7 +133,6 @@ function checkGameState() {
       alert('You win!')
   }
 }
-watchEffect(checkGameState)
 </script>
 
 <template>
